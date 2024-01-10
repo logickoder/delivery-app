@@ -5,8 +5,9 @@ import '../../../core/app/asset.dart';
 import '../../../core/app/theme.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({super.key, this.onPressed});
+  const LoginButton({super.key, this.onPressed, required this.loading});
 
+  final bool loading;
   final VoidCallback? onPressed;
 
   @override
@@ -14,7 +15,7 @@ class LoginButton extends StatelessWidget {
     final color = AppColor.of(context);
 
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: loading ? null : onPressed,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -28,7 +29,7 @@ class LoginButton extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              'Login with Google',
+              loading ? 'please wait...' : 'Login with Google',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: color.background,

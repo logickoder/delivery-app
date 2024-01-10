@@ -6,9 +6,17 @@ import '../../../core/app/theme.dart';
 import '../../shared/widgets/carousel.dart';
 import 'login_arc.dart';
 import 'login_button.dart';
+import 'login_viewmodel.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _viewModel = getLoginViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +72,17 @@ class LoginScreen extends StatelessWidget {
                       inactiveIndicator: color.background,
                     ),
                     const SizedBox(height: 48),
-                    const SizedBox(
+                    SizedBox(
                       width: double.infinity,
-                      child: LoginButton(),
+                      child: ValueListenableBuilder(
+                        valueListenable: _viewModel.loading,
+                        builder: (_, loading, __) {
+                          return LoginButton(
+                            loading: loading,
+                            onPressed: _viewModel.signInWithGoogle,
+                          );
+                        },
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 48),
