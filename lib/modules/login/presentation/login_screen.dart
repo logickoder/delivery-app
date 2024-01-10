@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/app/asset.dart';
+import '../../../core/app/route.dart';
 import '../../../core/app/theme.dart';
 import '../../shared/widgets/carousel.dart';
 import 'login_arc.dart';
 import 'login_button.dart';
-import 'login_viewmodel.dart';
+import 'login_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -79,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: (_, loading, __) {
                           return LoginButton(
                             loading: loading,
-                            onPressed: _viewModel.signInWithGoogle,
+                            onPressed: _onLogin,
                           );
                         },
                       ),
@@ -113,5 +114,14 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _onLogin() {
+    _viewModel.signInWithGoogle(() {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Welcome back')),
+      );
+      Navigator.pushReplacementNamed(context, AppRoute.home);
+    });
   }
 }
