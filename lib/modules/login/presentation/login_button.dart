@@ -3,9 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/app/asset.dart';
 import '../../../core/app/theme.dart';
+import '../../shared/widgets/loading_widget.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({super.key, this.onPressed, required this.loading});
+  const LoginButton({
+    super.key,
+    this.onPressed,
+    required this.loading,
+  });
 
   final bool loading;
   final VoidCallback? onPressed;
@@ -14,30 +19,33 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = AppColor.of(context);
 
-    return ElevatedButton(
-      onPressed: loading ? null : onPressed,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: color.background,
-              shape: BoxShape.circle,
-            ),
-            padding: const EdgeInsets.all(4),
-            child: SvgPicture.asset(AppAsset.googleIcon),
-          ),
-          Expanded(
-            child: Text(
-              loading ? 'please wait...' : 'Login with Google',
-              textAlign: TextAlign.center,
-              style: TextStyle(
+    return LoadingWidget(
+      loading: loading,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
                 color: color.background,
-                fontWeight: FontWeight.w500,
+                shape: BoxShape.circle,
+              ),
+              padding: const EdgeInsets.all(4),
+              child: SvgPicture.asset(AppAsset.googleIcon),
+            ),
+            Expanded(
+              child: Text(
+                'Login with Google',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: color.background,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
