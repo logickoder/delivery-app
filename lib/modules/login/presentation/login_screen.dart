@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Welcome back')),
       );
-      Navigator.pushReplacementNamed(context, AppRoute.home);
+      Navigator.pushReplacementNamed(context, AppRoute.dashboard);
     });
   }
 }
