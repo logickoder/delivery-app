@@ -8,4 +8,9 @@ class AppAsset {
   static const bookmarkIcon = '$_icons/bookmark.svg';
   static const chatIcon = '$_icons/chat.svg';
   static const settingsIcon = '$_icons/settings.svg';
+  static const notificationIcon = '$_icons/notification.svg';
+
+  /// Animations
+  static const _animations = 'assets/animations';
+  static const ridingAnimation = '$_animations/riding.gif';
 }

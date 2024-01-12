@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../../../core/app/theme.dart';
+import '../../shared/widgets/greeting_text.dart';
+import '../../shared/widgets/top_bar.dart';
+import 'home_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const id = '/home';
+
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Home Screen'),
+      body: AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+          statusBarColor: AppColor.of(context).background,
+        ),
+        child: const SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              TopBar(),
+              SliverToBoxAdapter(child: GreetingText()),
+              SliverToBoxAdapter(child: HomeCarousel()),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/app/asset.dart';
-import '../../../core/app/route.dart';
+import '../../../core/app/dimen.dart';
 import '../../../core/app/theme.dart';
+import '../../dashboard/presentation/dashboard_screen.dart';
 import '../../shared/widgets/carousel.dart';
 import 'login_arc.dart';
 import 'login_button.dart';
 import 'login_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const id = '/login';
+
   const LoginScreen({super.key});
 
   @override
@@ -46,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Align(
               alignment: Alignment.center,
               child: FractionallySizedBox(
-                widthFactor: .872,
+                widthFactor: AppDimen.widthFactor,
                 child: Column(
                   children: [
                     Expanded(child: SvgPicture.asset(AppAsset.loginCenterIcon)),
@@ -121,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Welcome back')),
       );
-      Navigator.pushReplacementNamed(context, AppRoute.dashboard);
+      Navigator.pushReplacementNamed(context, DashboardScreen.id);
     });
   }
 }

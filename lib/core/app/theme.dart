@@ -62,6 +62,10 @@ class AppTheme {
       extensions: [
         color,
       ],
+      scaffoldBackgroundColor: color.background,
+      appBarTheme: AppBarTheme(
+        backgroundColor: color.background,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: color.background,

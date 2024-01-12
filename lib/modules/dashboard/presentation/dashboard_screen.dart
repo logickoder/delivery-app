@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../home/presentation/home_screen.dart';
+import '../../home/presentation/home_navigator.dart';
 import '../../shared/widgets/bottom_bar.dart';
 
 class DashboardScreen extends StatefulWidget {
+  static const id = '/dashboard';
+
   const DashboardScreen({super.key});
 
   @override
@@ -21,7 +23,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: PageView.builder(
         itemBuilder: _pageBuilder,
         controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
+        onPageChanged: _onPageChanged,
       ),
       bottomNavigationBar: BottomBar(
         selectedIndex: selectedIndex,
@@ -40,7 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return (context, index) {
       switch (index) {
         case 0:
-          return const HomeScreen();
+          return const HomeNavigator();
         case 1:
           return const Center(child: Text('Bookmark Screen'));
         case 2:
