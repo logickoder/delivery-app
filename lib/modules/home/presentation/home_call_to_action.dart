@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/app/dimen.dart';
 import '../../../core/app/theme.dart';
+import '../../orders/presentation/orders_screen.dart';
 import '../../shared/widgets/button.dart';
 
 class HomeCallToAction extends StatelessWidget {
@@ -27,8 +28,16 @@ class HomeCallToAction extends StatelessWidget {
                 ),
               ),
               const Spacer(flex: 9),
-              const Expanded(
-                  flex: 52, child: ActionButton(text: 'Your Orders')),
+              Expanded(
+                flex: 52,
+                child: ActionButton(
+                  text: 'Your Orders',
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    OrdersScreen.id,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

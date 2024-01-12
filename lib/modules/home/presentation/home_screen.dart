@@ -9,7 +9,7 @@ import 'home_call_to_action.dart';
 import 'home_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const id = '/home';
+  static const id = '/';
 
   const HomeScreen({super.key});
 
