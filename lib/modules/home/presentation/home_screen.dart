@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../../../core/app/theme.dart';
 import '../../shared/widgets/greeting_text.dart';
 import '../../shared/widgets/top_bar.dart';
+import 'home_animation.dart';
 import 'home_call_to_action.dart';
 import 'home_carousel.dart';
 
@@ -30,6 +31,7 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.only(top: 25),
                 sliver: SliverToBoxAdapter(child: HomeCallToAction()),
               ),
+              SliverToBoxAdapter(child: HomeAnimation()),
             ],
           ),
         ),
