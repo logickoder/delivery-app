@@ -4,14 +4,13 @@ import 'package:flutter/services.dart';
 import '../../../core/app/theme.dart';
 import '../../shared/widgets/greeting_text.dart';
 import '../../shared/widgets/top_bar.dart';
-import 'home_animation.dart';
-import 'home_call_to_action.dart';
-import 'home_carousel.dart';
+import 'orders_receipt_input.dart';
+import 'orders_tracking_history.dart';
 
-class HomeScreen extends StatelessWidget {
-  static const id = '/';
+class OrdersScreen extends StatelessWidget {
+  static const id = '/orders';
 
-  const HomeScreen({super.key});
+  const OrdersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +27,13 @@ class HomeScreen extends StatelessWidget {
             slivers: [
               TopBar(),
               SliverToBoxAdapter(child: GreetingText()),
-              SliverToBoxAdapter(child: HomeCarousel()),
+              SliverToBoxAdapter(child: OrdersReceiptInput()),
               SliverPadding(
-                padding: EdgeInsets.only(top: 25),
-                sliver: SliverToBoxAdapter(child: HomeCallToAction()),
+                padding: EdgeInsets.only(top: 40, bottom: 16),
+                sliver: SliverToBoxAdapter(child: OrdersTrackingHistoryTitle()),
               ),
-              SliverToBoxAdapter(child: HomeAnimation()),
+              OrdersTrackingHistory(),
+              SliverToBoxAdapter(child: SizedBox(height: 40)),
             ],
           ),
         ),

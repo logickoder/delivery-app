@@ -46,10 +46,6 @@ class AppTheme {
 
   static ThemeData _get({required AppColor color, required ThemeData base}) {
     return base.copyWith(
-      textTheme: GoogleFonts.interTextTheme().apply(
-        bodyColor: color.body,
-        displayColor: color.body,
-      ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: color.primary,
         primary: color.primary,
@@ -78,25 +74,35 @@ class AppTheme {
         ),
       ),
       inputDecorationTheme: () {
-        final radius = BorderRadius.circular(10);
+        final border = OutlineInputBorder(
+          borderRadius: BorderRadius.circular(28),
+          borderSide: BorderSide(color: color.border, width: 0.5),
+        );
         return InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: radius,
-            borderSide: BorderSide(color: color.border),
+          border: border,
+          enabledBorder: border,
+          focusedBorder: border,
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 16,
+            horizontal: 34,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: radius,
-            borderSide: BorderSide(color: color.primary),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: radius,
-            borderSide: BorderSide(color: color.primary),
-          ),
-          contentPadding: const EdgeInsets.all(16),
-          isDense: true,
-          hintStyle: TextStyle(color: color.title.withOpacity(.5)),
+          hintStyle: TextStyle(color: color.border),
         );
       }(),
+      textTheme: () {
+        final theme = GoogleFonts.interTextTheme().apply(
+          bodyColor: color.body,
+          displayColor: color.body,
+        );
+        return theme.copyWith(
+            bodyLarge: theme.bodyLarge?.copyWith(
+          color: color.border,
+        ));
+      }(),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: color.border,
+        selectionHandleColor: color.border,
+      ),
     );
   }
 }

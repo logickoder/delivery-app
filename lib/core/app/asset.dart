@@ -9,6 +9,8 @@ class AppAsset {
   static const chatIcon = '$_icons/chat.svg';
   static const settingsIcon = '$_icons/settings.svg';
   static const notificationIcon = '$_icons/notification.svg';
+  static const ordersTopRightIcon = '$_icons/orders_top_right.svg';
+  static const arrowRightIcon = '$_icons/arrow_right.svg';
 
   /// Animations
   static const _animations = 'assets/animations';

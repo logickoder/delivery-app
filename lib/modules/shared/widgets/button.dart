@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/app/asset.dart';
 import '../../../core/app/theme.dart';
 
 class ActionButton extends StatelessWidget {
@@ -22,7 +24,6 @@ class ActionButton extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              textAlign: TextAlign.center,
               style: GoogleFonts.lato(
                 fontWeight: FontWeight.w600,
                 color: AppColor.of(context).background,
@@ -30,10 +31,7 @@ class ActionButton extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Icon(
-            Icons.arrow_forward,
-            color: AppColor.of(context).background,
-          )
+          SvgPicture.asset(AppAsset.arrowRightIcon),
         ],
       ),
     );
