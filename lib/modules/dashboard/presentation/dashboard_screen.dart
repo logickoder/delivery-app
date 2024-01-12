@@ -23,8 +23,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: PageView.builder(
         itemBuilder: _pageBuilder,
         controller: _pageController,
-        physics: const BouncingScrollPhysics(),
-        onPageChanged: _onPageChanged,
+        physics: const NeverScrollableScrollPhysics(),
       ),
       bottomNavigationBar: BottomBar(
         selectedIndex: selectedIndex,
