@@ -4,6 +4,7 @@ import '../../../core/domain/base_usecase.dart';
 import 'order_tracking_history_entity.dart';
 import 'orders_repository.dart';
 
+/// A use case class for retrieving order tracking history.
 class GetOrderTrackingHistoryUsecase
     implements BaseUseCase<List<OrderTrackingHistoryEntity>, Void> {
   const GetOrderTrackingHistoryUsecase(this._repository);

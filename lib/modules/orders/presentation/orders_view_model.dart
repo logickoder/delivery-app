@@ -5,6 +5,7 @@ import '../data/orders_repository_impl.dart';
 import '../domain/get_order_tracking_history_usecase.dart';
 import '../domain/order_tracking_history_entity.dart';
 
+/// ViewModel for managing orders and their tracking history.
 class OrdersViewModel implements BaseViewModel {
   final GetOrderTrackingHistoryUsecase _getOrdersTrackingHistory;
 

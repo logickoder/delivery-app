@@ -4,6 +4,7 @@ import '../../../core/domain/base_usecase.dart';
 import 'login_repository.dart';
 import 'user_entity.dart';
 
+/// A use case for signing in with Google authentication.
 class SignInWithGoogleUsecase implements BaseUseCase<UserEntity, Void> {
   const SignInWithGoogleUsecase(this._repository);
 

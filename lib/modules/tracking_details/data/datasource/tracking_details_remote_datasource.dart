@@ -3,13 +3,18 @@ import 'dart:math';
 import '../tracking_detail_model.dart';
 import 'tracking_details_datasource.dart';
 
-/// A datasource for tracking details that simulates a remote API
+/// A remote data source for fetching tracking details.
 class TrackingDetailsRemoteDatasource implements TrackingDetailsDatasource {
+  /// Retrieves tracking details for a given receipt number.
+  ///
+  /// [receiptNumber] - The unique identifier for the tracking receipt.
   @override
   Future<TrackingDetailModel> getDetail(String receiptNumber) async {
+    // Simulate a delayed response for demonstration purposes.
     await Future.delayed(const Duration(seconds: 2));
-    final random = Random();
 
+    // Generate random tracking details.
+    final random = Random();
     return TrackingDetailModel(
       receiptNumber: receiptNumber,
       status: random.nextBool() ? 'In delivery' : 'In the process',

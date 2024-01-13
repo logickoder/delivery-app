@@ -36,8 +36,12 @@ class TrackingDetailsViewModel extends BaseViewModel {
 
   ValueListenable<TrackingDetailEntity?> get detail => _detail;
 
-  late final Listenable state =
-      Listenable.merge([_loading, _mapStyle, _route, _detail]);
+  late final Listenable state = Listenable.merge([
+    _loading,
+    _mapStyle,
+    _route,
+    _detail,
+  ]);
 
   Future<void> init(String receiptNumber, BuildContext context) async {
     try {
@@ -57,11 +61,13 @@ class TrackingDetailsViewModel extends BaseViewModel {
     }
   }
 
+  /// Retrieves map styling from the app's assets.
   Future<void> _getMapStyle() async {
     final style = await rootBundle.loadString(AppAsset.googleMapStyingRaw);
     _mapStyle.value = style;
   }
 
+  /// Retrieves route information and sets markers and polyline.
   Future<void> _getRoute(String receiptNumber, BuildContext context) async {
     final positions = await _getParcelRoute(receiptNumber);
     if (!context.mounted) {
@@ -103,10 +109,12 @@ class TrackingDetailsViewModel extends BaseViewModel {
     );
   }
 
+  /// Retrieves tracking details for the given receiptNumber.
   Future<void> _getDetail(String receiptNumber) async {
     _detail.value = await _getTrackingDetail(receiptNumber);
   }
 
+  /// Converts an SVG asset to a BitmapDescriptor for map markers.
   Future<BitmapDescriptor> _getBitmapDescriptorFromSvgAsset(
     String assetName, {
     required BuildContext context,
