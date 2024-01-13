@@ -1,6 +1,6 @@
-import 'tracking_details_entity.dart';
+import '../data/tracking_detail_model.dart';
 
 abstract class TrackingDetailsRepository {
   /// Get tracking details for [receiptNumber]
-  Future<TrackingDetailsEntity> getDetail(String receiptNumber);
+  Future<TrackingDetailModel> getDetail(String receiptNumber);
 }

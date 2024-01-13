@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/app/dimen.dart';
 import '../../../core/app/theme.dart';
 
 class HistoryItem extends StatelessWidget {
@@ -14,7 +13,7 @@ class HistoryItem extends StatelessWidget {
   const HistoryItem({
     super.key,
     required this.title,
-    required this.titleWeight,
+    this.titleWeight = FontWeight.w600,
     required this.subtitle,
     required this.icon,
     required this.iconBackground,
@@ -25,9 +24,8 @@ class HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = AppColor.of(context);
 
-    return FractionallySizedBox(
-      widthFactor: AppDimen.widthFactor,
-      child: LayoutBuilder(builder: (_, constraints) {
+    return LayoutBuilder(
+      builder: (_, constraints) {
         final iconSize = constraints.maxWidth * .18;
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,22 +47,31 @@ class HistoryItem extends StatelessWidget {
             SizedBox(width: constraints.maxWidth * .05),
             Expanded(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
                     style: TextStyle(
-                        fontWeight: titleWeight, color: color.sectionTitle),
+                      fontWeight: titleWeight,
+                      color: color.sectionTitle,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 8),
-                  Text(subtitle),
+                  Text(
+                    subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),
             trailing,
           ],
         );
-      }),
+      },
     );
   }
 }

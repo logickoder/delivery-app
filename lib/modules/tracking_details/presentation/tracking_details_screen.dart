@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemUiOverlayStyle;
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../core/app/theme.dart';
+import '../../../core/presentation/view_model_provider.dart';
+import 'tracking_details_bottom_sheet.dart';
 import 'tracking_details_input.dart';
+import 'tracking_details_map.dart';
 import 'tracking_details_top_bar.dart';
 import 'tracking_details_view_model.dart';
 
@@ -18,6 +21,7 @@ class TrackingDetailsScreen extends StatefulWidget {
 
 class _TrackingDetailsScreenState extends State<TrackingDetailsScreen> {
   final _viewModel = getTrackingDetailsViewModel();
+  var _blurScreen = false;
 
   @override
   void initState() {
@@ -27,11 +31,6 @@ class _TrackingDetailsScreenState extends State<TrackingDetailsScreen> {
     super.initState();
   }
 
-  static const _initialPosition = CameraPosition(
-    target: LatLng(6.510977, 3.388195),
-    zoom: 16,
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,47 +38,34 @@ class _TrackingDetailsScreenState extends State<TrackingDetailsScreen> {
         value: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
         ),
-        child: Stack(
-          children: [
-            ListenableBuilder(
-              listenable: _viewModel.state,
-              builder: (_, __) {
-                final loading = _viewModel.loading.value;
-                final mapStyle = _viewModel.mapStyle.value;
-                final (markers, polyline) = _viewModel.route.value;
-
-                if (loading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                final Set<Polyline> polylines = {};
-                if (polyline != null) {
-                  polylines.add(
-                    polyline.copyWith(colorParam: AppColor.of(context).primary),
-                  );
-                }
-
-                return GoogleMap(
-                  initialCameraPosition: _initialPosition,
-                  zoomControlsEnabled: false,
-                  markers: markers,
-                  polylines: polylines,
-                  onMapCreated: (controller) {
-                    controller.setMapStyle(mapStyle);
-                  },
-                );
-              },
-            ),
-            SafeArea(
-              child: Column(
-                children: [
-                  const TrackingDetailsTopBar(),
-                  const SizedBox(height: 49),
-                  TrackingDetailsInput(_receiptNumber),
-                ],
+        child: ViewModelProvider(
+          _viewModel,
+          child: Stack(
+            children: [
+              const TrackingDetailsMap(),
+              SafeArea(
+                child: Column(
+                  children: [
+                    const TrackingDetailsTopBar(),
+                    const SizedBox(height: 49),
+                    TrackingDetailsInput(_receiptNumber),
+                  ],
+                ),
               ),
-            ),
-          ],
+              if (_blurScreen) ...{
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                  child: AnimatedContainer(
+                    width: double.infinity,
+                    height: double.infinity,
+                    duration: Durations.long4,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                )
+              },
+              TrackingDetailsBottomSheet(onFullView: _onBlurScreen),
+            ],
+          ),
         ),
       ),
     );
@@ -87,4 +73,8 @@ class _TrackingDetailsScreenState extends State<TrackingDetailsScreen> {
 
   String get _receiptNumber =>
       ModalRoute.of(context)!.settings.arguments as String;
+
+  void _onBlurScreen(bool value) {
+    setState(() => _blurScreen = value);
+  }
 }

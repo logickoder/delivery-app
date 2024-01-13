@@ -10,12 +10,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../core/app/asset.dart';
 import '../../../core/presentation/base_view_model.dart';
 import '../data/tracking_details_repository_impl.dart';
-import '../domain/get_product_positions_usecase.dart';
+import '../domain/entity/tracking_detail.dart';
+import '../domain/usecase/get_product_positions.dart';
+import '../domain/usecase/get_tracking_detail.dart';
 
 class TrackingDetailsViewModel extends BaseViewModel {
-  final GetProductPositionsUsecase _getProductPositions;
+  final GetParcelRouteUsecase _getParcelRoute;
+  final GetTrackingDetailUsecase _getTrackingDetail;
 
-  TrackingDetailsViewModel(this._getProductPositions);
+  TrackingDetailsViewModel(this._getParcelRoute, this._getTrackingDetail);
 
   final _loading = ValueNotifier<bool>(false);
 
@@ -29,13 +32,26 @@ class TrackingDetailsViewModel extends BaseViewModel {
 
   ValueListenable<(Set<Marker>, Polyline?)> get route => _route;
 
-  late final Listenable state = Listenable.merge([_loading, _mapStyle, _route]);
+  final _detail = ValueNotifier<TrackingDetailEntity?>(null);
+
+  ValueListenable<TrackingDetailEntity?> get detail => _detail;
+
+  late final Listenable state =
+      Listenable.merge([_loading, _mapStyle, _route, _detail]);
 
   Future<void> init(String receiptNumber, BuildContext context) async {
     try {
       _loading.value = true;
       await Future.wait(
-          [_getMapStyle(), _getPositions(receiptNumber, context)]);
+        [
+          _getMapStyle(),
+          _getRoute(receiptNumber, context),
+        ],
+      );
+      // get route already polls the remote datasource and saves the result to the local datasource
+      // so calling this method will not make another network call
+      // and since we don't want to have race conditions, we make sure to call this method after _getRoute
+      await _getDetail(receiptNumber);
     } finally {
       _loading.value = false;
     }
@@ -46,8 +62,8 @@ class TrackingDetailsViewModel extends BaseViewModel {
     _mapStyle.value = style;
   }
 
-  Future<void> _getPositions(String receiptNumber, BuildContext context) async {
-    final positions = await _getProductPositions(receiptNumber);
+  Future<void> _getRoute(String receiptNumber, BuildContext context) async {
+    final positions = await _getParcelRoute(receiptNumber);
     if (!context.mounted) {
       return;
     }
@@ -87,6 +103,10 @@ class TrackingDetailsViewModel extends BaseViewModel {
     );
   }
 
+  Future<void> _getDetail(String receiptNumber) async {
+    _detail.value = await _getTrackingDetail(receiptNumber);
+  }
+
   Future<BitmapDescriptor> _getBitmapDescriptorFromSvgAsset(
     String assetName, {
     required BuildContext context,
@@ -124,5 +144,6 @@ class TrackingDetailsViewModel extends BaseViewModel {
 
 TrackingDetailsViewModel getTrackingDetailsViewModel() =>
     TrackingDetailsViewModel(
-      GetProductPositionsUsecase(TrackingDetailsRepositoryImpl()),
+      GetParcelRouteUsecase(TrackingDetailsRepositoryImpl()),
+      GetTrackingDetailUsecase(TrackingDetailsRepositoryImpl()),
     );

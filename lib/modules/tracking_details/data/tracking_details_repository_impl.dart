@@ -1,17 +1,25 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import '../domain/tracking_details_entity.dart';
 import '../domain/tracking_details_repository.dart';
-import 'tracking_details_remote_datasource.dart';
+import 'datasource/tracking_details_local_datasource.dart';
+import 'datasource/tracking_details_remote_datasource.dart';
+import 'tracking_detail_model.dart';
 
 class TrackingDetailsRepositoryImpl implements TrackingDetailsRepository {
-  final _datasource = TrackingDetailsRemoteDatasource();
+  final _remote = TrackingDetailsRemoteDatasource();
+  final _local = TrackingDetailsLocalDatasource();
+
+  TrackingDetailsRepositoryImpl._();
+
+  static final _instance = TrackingDetailsRepositoryImpl._();
+
+  factory TrackingDetailsRepositoryImpl() => _instance;
 
   @override
-  Future<TrackingDetailsEntity> getDetail(String receiptNumber) async {
-    final data = await _datasource.getDetails(receiptNumber);
-    return TrackingDetailsEntity(
-      route: data.route.map((e) => LatLng(e.first, e.last)).toList(),
-    );
+  Future<TrackingDetailModel> getDetail(String receiptNumber) async {
+    var data = await _local.getDetail(receiptNumber);
+    if (data == null) {
+      data = await _remote.getDetail(receiptNumber);
+      _local.addDetail(data);
+    }
+    return data;
   }
 }

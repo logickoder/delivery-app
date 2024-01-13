@@ -1,9 +1,9 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class TrackingDetailsEntity {
+class TrackingDetailRouteEntity {
   final List<LatLng> route;
 
-  const TrackingDetailsEntity({
+  const TrackingDetailRouteEntity({
     required this.route,
   });
 }

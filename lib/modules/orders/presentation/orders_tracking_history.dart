@@ -57,13 +57,16 @@ class OrdersTrackingHistory extends StatelessWidget {
             return GestureDetector(
               onTap: () => _navigateToTrackingDetails(context, data.title),
               behavior: HitTestBehavior.opaque,
-              child: HistoryItem(
-                title: data.title,
-                titleWeight: FontWeight.w500,
-                subtitle: data.progress,
-                icon: _icon(data.progress),
-                iconBackground: color.card,
-                trailing: rightIcon,
+              child: FractionallySizedBox(
+                widthFactor: AppDimen.widthFactor,
+                child: HistoryItem(
+                  title: data.title,
+                  titleWeight: FontWeight.w500,
+                  subtitle: data.progress,
+                  icon: _icon(data.progress),
+                  iconBackground: color.card,
+                  trailing: rightIcon,
+                ),
               ),
             );
           },
