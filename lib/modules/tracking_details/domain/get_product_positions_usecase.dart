@@ -2,9 +2,9 @@ import '../../../core/domain/base_usecase.dart';
 import 'tracking_details_entity.dart';
 import 'tracking_details_repository.dart';
 
-class GetProductPositions
+class GetProductPositionsUsecase
     implements BaseUseCase<TrackingDetailsEntity, String> {
-  const GetProductPositions(this._repository);
+  const GetProductPositionsUsecase(this._repository);
 
   final TrackingDetailsRepository _repository;
 

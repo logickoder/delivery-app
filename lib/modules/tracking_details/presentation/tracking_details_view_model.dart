@@ -8,11 +8,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../core/app/asset.dart';
+import '../../../core/presentation/base_view_model.dart';
 import '../data/tracking_details_repository_impl.dart';
-import '../domain/get_product_positions.dart';
+import '../domain/get_product_positions_usecase.dart';
 
-class TrackingDetailsViewModel {
-  final GetProductPositions _getProductPositions;
+class TrackingDetailsViewModel extends BaseViewModel {
+  final GetProductPositionsUsecase _getProductPositions;
 
   TrackingDetailsViewModel(this._getProductPositions);
 
@@ -123,5 +124,5 @@ class TrackingDetailsViewModel {
 
 TrackingDetailsViewModel getTrackingDetailsViewModel() =>
     TrackingDetailsViewModel(
-      GetProductPositions(TrackingDetailsRepositoryImpl()),
+      GetProductPositionsUsecase(TrackingDetailsRepositoryImpl()),
     );

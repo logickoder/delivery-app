@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 
+import '../../../core/presentation/base_view_model.dart';
 import '../data/login_repository_impl.dart';
 import '../domain/sign_in_with_google_usecase.dart';
 
-class LoginViewModel {
+class LoginViewModel extends BaseViewModel {
   LoginViewModel(this._signInWithGoogleUsecase);
 
   final SignInWithGoogleUsecase _signInWithGoogleUsecase;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show SystemUiOverlayStyle, rootBundle;
+import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../core/app/theme.dart';
@@ -29,7 +29,7 @@ class _TrackingDetailsScreenState extends State<TrackingDetailsScreen> {
 
   static const _initialPosition = CameraPosition(
     target: LatLng(6.510977, 3.388195),
-    zoom: 17,
+    zoom: 16,
   );
 
   @override
