@@ -5,7 +5,7 @@ import 'login_repository.dart';
 import 'user_entity.dart';
 
 class SignInWithGoogleUsecase implements BaseUseCase<UserEntity, Void> {
-  SignInWithGoogleUsecase(this._repository);
+  const SignInWithGoogleUsecase(this._repository);
 
   final LoginRepository _repository;
 

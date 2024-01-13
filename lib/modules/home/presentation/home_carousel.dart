@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/app/theme.dart';
+import '../../../core/presentation/view_model_provider.dart';
 import '../../shared/widgets/carousel.dart';
+import 'home_view_model.dart';
 
 class HomeCarousel extends StatefulWidget {
   const HomeCarousel({super.key});
@@ -16,31 +18,45 @@ class _HomeCarouselState extends State<HomeCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = ViewModelProvider.of<HomeViewModel>(context);
+
     return AspectRatio(
       aspectRatio: 375 / 301,
       child: LayoutBuilder(
         builder: (_, constraints) {
           final padding = constraints.maxWidth * .06;
           final spacing = padding / 2;
-          const count = 6;
 
-          return Carousel(
-            count: count,
-            indicatorGap: 30,
-            viewportFraction: .68,
-            useExpandablePageView: false,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding: EdgeInsets.only(
-                  left: index == 0 ? padding : 0,
-                  right: index == count - 1 ? padding : spacing,
-                ),
-                child: _CarouselItem(
-                    'https://picsum.photos/${300 + index}', index == active),
+          return ListenableBuilder(
+            listenable: viewModel.state,
+            builder: (_, __) {
+              if (viewModel.loading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final images = viewModel.images.value;
+
+              return Carousel(
+                count: images.length,
+                indicatorGap: 30,
+                viewportFraction: .68,
+                useExpandablePageView: false,
+                itemBuilder: (_, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      left: index == 0 ? padding : 0,
+                      right: index == images.length - 1 ? padding : spacing,
+                    ),
+                    child: _CarouselItem(
+                      'https://picsum.photos/${300 + index}',
+                      index == active,
+                    ),
+                  );
+                },
+                inactiveIndicator: AppColor.of(context).card,
+                onPageChanged: (index) => setState(() => active = index),
               );
             },
-            inactiveIndicator: AppColor.of(context).card,
-            onPageChanged: (index) => setState(() => active = index),
           );
         },
       ),
