@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import '../../../core/app/theme.dart';
 import '../../shared/widgets/greeting_text.dart';
 import '../../shared/widgets/top_bar.dart';
 import 'home_animation.dart';
@@ -15,27 +13,22 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnnotatedRegion(
-        value: SystemUiOverlayStyle(
-          statusBarColor: AppColor.of(context).background,
-        ),
-        child: const SafeArea(
-          child: CustomScrollView(
-            physics: BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-            slivers: [
-              TopBar(),
-              SliverToBoxAdapter(child: GreetingText()),
-              SliverToBoxAdapter(child: HomeCarousel()),
-              SliverPadding(
-                padding: EdgeInsets.only(top: 25),
-                sliver: SliverToBoxAdapter(child: HomeCallToAction()),
-              ),
-              SliverToBoxAdapter(child: HomeAnimation()),
-            ],
+    return const Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
+          physics: BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
           ),
+          slivers: [
+            TopBar(),
+            SliverToBoxAdapter(child: GreetingText()),
+            SliverToBoxAdapter(child: HomeCarousel()),
+            SliverPadding(
+              padding: EdgeInsets.only(top: 25),
+              sliver: SliverToBoxAdapter(child: HomeCallToAction()),
+            ),
+            SliverToBoxAdapter(child: HomeAnimation()),
+          ],
         ),
       ),
     );

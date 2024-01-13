@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'core/app/theme.dart';
 import 'modules/dashboard/presentation/dashboard_screen.dart';
 import 'modules/login/presentation/login_screen.dart';
+import 'modules/tracking_details/presentation/tracking_details_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginScreen.id: (_) => const LoginScreen(),
         DashboardScreen.id: (_) => const DashboardScreen(),
+        TrackingDetailsScreen.id: (_) => const TrackingDetailsScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

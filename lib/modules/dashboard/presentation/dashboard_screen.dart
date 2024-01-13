@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
+import '../../../core/app/theme.dart';
 import '../../home/presentation/home_navigator.dart';
 import '../../shared/widgets/bottom_bar.dart';
 
@@ -20,10 +22,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView.builder(
-        itemBuilder: _pageBuilder,
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
+      body: AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+          statusBarColor: AppColor.of(context).background,
+        ),
+        child: PageView.builder(
+          itemBuilder: _pageBuilder,
+          controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
+        ),
       ),
       bottomNavigationBar: BottomBar(
         selectedIndex: selectedIndex,

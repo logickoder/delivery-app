@@ -95,9 +95,11 @@ class AppTheme {
           displayColor: color.body,
         );
         return theme.copyWith(
-            bodyLarge: theme.bodyLarge?.copyWith(
-          color: color.border,
-        ));
+          bodyLarge: theme.bodyLarge?.copyWith(
+            color: color.border,
+            fontWeight: FontWeight.w500,
+          ),
+        );
       }(),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: color.border,

@@ -11,8 +11,14 @@ class AppAsset {
   static const notificationIcon = '$_icons/notification.svg';
   static const ordersTopRightIcon = '$_icons/orders_top_right.svg';
   static const arrowRightIcon = '$_icons/arrow_right.svg';
+  static const mapStartIcon = '$_icons/map_location_start.svg';
+  static const mapEndIcon = '$_icons/map_location_end.svg';
 
   /// Animations
   static const _animations = 'assets/animations';
   static const ridingAnimation = '$_animations/riding.gif';
+
+  /// Raw
+  static const _raw = 'assets/raw';
+  static const googleMapStyingRaw = '$_raw/google_map_styling.json';
 }
