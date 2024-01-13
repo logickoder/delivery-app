@@ -46,8 +46,8 @@ class OrdersTrackingHistory extends StatelessWidget {
         final history = viewModel.history.value;
 
         if (loading) {
-          const SliverToBoxAdapter(
-            child: Center(child: RefreshProgressIndicator()),
+          return const SliverFillRemaining(
+            child: Center(child: CircularProgressIndicator()),
           );
         }
 
@@ -56,6 +56,7 @@ class OrdersTrackingHistory extends StatelessWidget {
             final data = history[index];
             return GestureDetector(
               onTap: () => _navigateToTrackingDetails(context, data.title),
+              behavior: HitTestBehavior.opaque,
               child: HistoryItem(
                 title: data.title,
                 titleWeight: FontWeight.w500,
