@@ -10,7 +10,8 @@ class SignInWithGoogleUsecase implements BaseUseCase<UserEntity, Void> {
   final LoginRepository _repository;
 
   @override
-  Future<UserEntity> call([Void? value]) {
-    return _repository.signInWithGoogle();
+  Future<UserEntity> call([Void? value]) async {
+    final model = await _repository.signInWithGoogle();
+    return UserEntity(id: model.id);
   }
 }

@@ -25,7 +25,8 @@ class TopBar extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(avatarWidth),
                   child: CachedNetworkImage(
-                    imageUrl: 'https://picsum.photos/200',
+                    imageUrl:
+                        'https://www.gravatar.com/avatar/6d94860616dbab71d6d2d2485c698bb3?s=400',
                     placeholder: (_, __) => const Icon(Icons.person),
                     errorWidget: (_, __, ___) => const Icon(Icons.person),
                     width: avatarWidth,

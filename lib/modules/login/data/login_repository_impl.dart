@@ -1,13 +1,10 @@
 import '../domain/login_repository.dart';
-import '../domain/user_entity.dart';
 import 'login_remote_datasource.dart';
+import 'user_model.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
   final _datasource = LoginRemoteDatasource();
 
   @override
-  Future<UserEntity> signInWithGoogle() async {
-    final model = await _datasource.signInWithGoogle();
-    return UserEntity(id: model.id);
-  }
+  Future<UserModel> signInWithGoogle() => _datasource.signInWithGoogle();
 }

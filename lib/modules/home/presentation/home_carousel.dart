@@ -47,10 +47,7 @@ class _HomeCarouselState extends State<HomeCarousel> {
                       left: index == 0 ? padding : 0,
                       right: index == images.length - 1 ? padding : spacing,
                     ),
-                    child: _CarouselItem(
-                      'https://picsum.photos/${300 + index}',
-                      index == active,
-                    ),
+                    child: _CarouselItem(images[index], index == active),
                   );
                 },
                 inactiveIndicator: AppColor.of(context).card,
@@ -90,7 +87,7 @@ class _CarouselItem extends StatelessWidget {
           errorWidget: (_, __, ___) => const Icon(
             Icons.shopping_basket_outlined,
           ),
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
           color: _active ? null : AppColor.of(context).card.withAlpha(204),
           colorBlendMode: _active ? null : BlendMode.srcATop,
         ),

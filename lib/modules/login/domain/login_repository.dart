@@ -1,5 +1,5 @@
-import 'user_entity.dart';
+import '../data/user_model.dart';
 
 abstract class LoginRepository {
-  Future<UserEntity> signInWithGoogle();
+  Future<UserModel> signInWithGoogle();
 }
